@@ -219,61 +219,7 @@ app.put('/api/movies/:id', async (req, res) => {
   }
 });
 
-const userSchema = new mongoose.Schema({
-  firstName: String,
-  lastName: String,
-  username: String,
-  password: String,
-  email: String,
-});
 
-const User = mongoose.model('User', userSchema);
-
-// Create a user (signup)
-app.post('/api/users', async (req, res) => {
-  const user = new User({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    username: req.body.username,
-    password: req.body.password,
-    email: req.body.email,
-  });
-  try {
-    await user.save();
-    res.send(user);
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
-  }
-});
-
-// Get all users
-app.get('/api/users', async (req, res) => {
-  try {
-    let user = await User.find();
-    res.send(user);
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
-  }
-});
-
-// Get a user
-app.post('/api/users/login', async (req, res) => {
-  console.log("before try catch");
-  try {
-    let user = await User.findOne({username: req.body.username, password: req.body.password});
-  //  console.log(user);
-    if (!user) {
-      res.status(403).send("Incorrect username or password");
-    }else{
-      res.send(user);
-    }
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
-  }
-});
 
 
 app.listen(3003, () => console.log('Server listening on port 3003!'));
