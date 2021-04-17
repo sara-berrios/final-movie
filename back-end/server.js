@@ -11,8 +11,9 @@ app.use(bodyParser.urlencoded({
 const mongoose = require('mongoose');
 
 // connect to the database
-mongoose.connect('mongodb://localhost:27017/checkout-movie', {
-  useNewUrlParser: true
+mongoose.connect('mongodb://localhost:27017/final-movie', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
 
 // Configure multer so that it will upload to '../front-end/public/images'
