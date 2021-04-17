@@ -219,7 +219,8 @@ app.put('/api/movies/:id', async (req, res) => {
   }
 });
 
-
-
+// import the users module and setup its API path
+const users = require("./users.js");
+app.use("/api/users", users.routes);
 
 app.listen(3003, () => console.log('Server listening on port 3003!'));
