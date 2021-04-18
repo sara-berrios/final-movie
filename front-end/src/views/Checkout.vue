@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h1>Movie Picker</h1>
-    <p>Welcome {{currentUser.firstName}} {{currentUser.lastName}}</p>
+    <p>Welcome {{user.firstName}} {{user.lastName}}</p>
     <button id="logout" @click="logout">Logout</button>
     <hr/>
 
@@ -26,7 +26,7 @@ export default {
   },
   data() {
     return {
-      currentUser: this.$root.$data.currentUser,
+      user: this.$root.$data.user,
       availableMovies: [],
       checkedOutMovies: []
     }
@@ -41,13 +41,13 @@ export default {
       this.availableMovies = response.data;
     },
     async getCheckedOut(){
-      let response = await axios.get(`/api/movies/checked-out/${this.currentUser._id}`);
+      let response = await axios.get(`/api/movies/checked-out/${this.user._id}`);
       //console.log(response.data);
       this.checkedOutMovies = response.data;
     },
     logout(){
       try{
-          this.$root.$data.currentUser = null;
+          this.$root.$data.user = null;
           this.$router.push({ path: '/'});
       }catch(error){
         //console.log(error);

@@ -18,13 +18,13 @@
       <!-- <form> -->
       <div class="form">
         <label>Username:</label>
-        <input v-model="username" type="text">
+        <input v-model="usernameLogin" type="text">
         <br/>
         <label>Password:</label>
-        <input v-model="password" type="password">
+        <input v-model="passwordLogin" type="password">
         <br/>
         <button class="submitButton" @click="submitLogin">Submit</button>
-        <p v-if=incorrect>Incorrect username or password</p>
+        <p v-if=invalidLogin>Incorrect username or password</p>
       <!-- </form> -->
       </div>
     </div>
@@ -48,6 +48,7 @@
         <input v-model="email" type="text">
         <br/>
         <button class="submitButton" @click="submitSignup">Submit</button>
+        <p v-if=invalidSignup>All fields are required </p>
       </div>
       <!-- </form> -->
     </div>
@@ -76,12 +77,29 @@ export default {
       username: '',
       password: '',
       email: '',
-      incorrect: false,
-      movies: []
+      usernameLogin: '',
+      passwordLogin: '',
+      invalidLogin: false,
+      invalidSignup: false,
+      movies: [],
+      error: '',
+      errorLogin: '',
+
     }
   },
-  created() {
+  async created() {
+    try {
+      let response = await axios.get('/api/users');
+      this.$root.$data.user = response.data.user;
+    } catch (error) {
+      this.$root.$data.user = null;
+    }
     this.getMovies();
+  },
+  computed: {
+    user() {
+      return this.$root.$data.user;
+    }
   },
   computed: {
     // movies() {
@@ -119,34 +137,53 @@ export default {
       this.signup = true;
     },
     async submitLogin(){
+      this.error = '';
+      this.errorLogin = '';
+      this.invalidLogin = false;
+      if (!this.usernameLogin || !this.passwordLogin) {
+        this.invalidLogin = true;
+        return;
+      }
       try{
-        this.incorrect = false;
-        const user = await axios.post('/api/users/login', {
-            username: this.username,
-            password: this.password,
+        const response = await axios.post('/api/users/login', {
+            username: this.usernameLogin,
+            password: this.passwordLogin,
         });
         //console.log(user.data);
-        //console.log(this.$root.$data.currentUser);
-        this.$root.$data.currentUser = user.data;
+        //console.log(this.$root.$data.user);
+        this.$root.$data.user = response.data.user;
         this.$router.push({ path: '/checkout'});
       }catch(error){
-        this.incorrect = true;
-        //console.log(error);
+        this.invalidLogin = true;
+        this.errorLogin = "Error: " + error.response.data.message;
+        this.$root.$data.user = null;
       }
     },
     async submitSignup(){
+      this.error = '';
+      this.errorLogin = '';
+      this.invalidSignup = false;
+      if (!this.firstName || 
+          !this.lastName ||
+          !this.username ||
+          !this.password ||
+          !this.email) {
+            this.invalidSignup = true;
+            return;
+        }
       try{
-        const user = await axios.post('/api/users', {
+        const response = await axios.post('/api/users', {
           firstName: this.firstName,
           lastName: this.lastName,
           username: this.username,
           password: this.password,
           email: this.email,
         });
-        this.$root.$data.currentUser = user.data;
+        this.$root.$data.user = response.data.user;
         this.$router.push({ path: '/checkout'});
-      }catch(error){
-        //console.log(error);
+      } catch(error){
+        this.error = "Error: " + error.response.data.message;
+        this.$root.$data.user = null;      
       }
     },
     async getMovies() {

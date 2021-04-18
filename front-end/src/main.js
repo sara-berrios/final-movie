@@ -9,7 +9,7 @@ Vue.config.productionTip = false
 let data = {
   movie: "",
   // allMovies: [],
-  currentUser: null,
+  user: null,
 }
 
 new Vue({

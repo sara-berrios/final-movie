@@ -39,13 +39,13 @@ export default {
   },
   computed: {
     user() {
-      return this.$root.$data.currentUser;
+      return this.$root.$data.user;
     }
   },
   methods: {
     async checkout() {
       try {
-        await axios.put(`/api/movies/${this.movie._id}/checkout/${this.$root.$data.currentUser._id}`);
+        await axios.put(`/api/movies/${this.movie._id}/checkout/${this.$root.$data.user._id}`);
         this.$router.push('/checkout');
       } catch(error) {
         //console.log(error);
