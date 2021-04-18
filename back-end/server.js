@@ -113,17 +113,17 @@ app.get('/api/movies/available', async (req, res) => {
 // get all movies that have current user
 app.get('/api/movies/checked-out/:userID', async (req, res) => {
   try {
-    let currentUser = await User.findOne({
+    let user = await User.findOne({
       _id: req.params.userID
     });
-    if(!currentUser){
+    if(!user){
       res.send(404);
       return;
     }else{
       // console.log("checking out");
-      // console.log(currentUser);
+      // console.log(user);
       let movies = await Movie.find({
-        user: currentUser._id
+        user: user._id
       }).populate('user');
       // console.log(movies);
       res.send(movies);

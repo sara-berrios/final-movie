@@ -15,7 +15,11 @@ const userSchema = new mongoose.Schema({
   lastName: String,
   username: String,
   password: String,
-  email: String
+  email: String,
+  role: {
+    type: String,
+    default: ""
+    }
 });
 
 // This is a hook that will be called before a user record is saved,
@@ -153,7 +157,9 @@ router.post('/login', async (req, res) => {
 });
 
 // logout
-router.delete("/", validUser, async (req, res) => {
+// router.delete("/", validUser, async (req, res) => {
+  router.delete("/", async (req, res) => {
+
   try {
     req.session = null;
     res.sendStatus(200);
