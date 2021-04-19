@@ -113,31 +113,31 @@ router.post('/', async (req, res) => {
       message: "all fields are required"
     });
   }
-try{
-  const existingUser = await User.findOne({
-    username: req.body.username
-  });
-  if(existingUser){
-    return res.status(403).send({
-      message: "username already exists"
+  try{
+    const existingUser = await User.findOne({
+      username: req.body.username
     });
-  }
-  const user = new User({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    username: req.body.username,
-    password: req.body.password,
-    email: req.body.email
-  });
-  await user.save;
+    if(existingUser){
+      return res.status(403).send({
+        message: "username already exists"
+      });
+    }
+    const user = new User({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      username: req.body.username,
+      password: req.body.password,
+      email: req.body.email
+    });
+    await user.save;
 
-  // set user session info
-  req.session.userID = user._id;
-  // send back a 200 OK response, along with the user that was created
-  return res.send({
-    user: user
-  });
-}catch (error) {
+    // set user session info
+    req.session.userID = user._id;
+    // send back a 200 OK response, along with the user that was created
+    return res.send({
+      user: user
+    });
+  }catch (error) {
     console.log(error);
     res.sendStatus(500);
   }
