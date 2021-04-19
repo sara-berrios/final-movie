@@ -128,7 +128,7 @@ export default {
       try{
         const formData = new FormData();
         formData.append('photo', this.file, this.file.name)
-        let r1 = await axios.post('/api/photos', formData);
+        let r1 = await axios.post('/api/movies/photos', formData);
         let r2 = await axios.post('/api/movies', {
           title: this.title,
           path: r1.data.path,
