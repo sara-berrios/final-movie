@@ -101,24 +101,6 @@ export default {
       return this.$root.$data.user;
     }
   },
-  computed: {
-    // movies() {
-    //   let filteredMovies = this.$root.$data.movies;
-    //   // if (this.mpa === '' && this.genre === '') {
-    //   //   return this.$root.$data.movies;
-    //   // } else if (this.mpa === '') {
-    //   //   return this.$root.$data.movies.filter(movie => movie.genre === this.genre);
-    //   // }
-
-    //   if (this.mpa !== '') {
-    //     filteredMovies = filteredMovies.filter(movie => movie.mpa_rating === this.mpa);
-    //   }
-    //   if (this.genre !== '') {
-    //     filteredMovies = filteredMovies.filter(movie => movie.genre === this.genre);
-    //   }
-    //   return filteredMovies;
-    // }
-  },
   methods: {
     select(mpa, genre) {
       this.mpa = mpa;
@@ -163,7 +145,7 @@ export default {
       this.error = '';
       this.errorLogin = '';
       this.invalidSignup = false;
-      if (!this.firstName || 
+      if (!this.firstName ||
           !this.lastName ||
           !this.username ||
           !this.password ||
@@ -183,7 +165,7 @@ export default {
         this.$router.push({ path: '/checkout'});
       } catch(error){
         this.error = "Error: " + error.response.data.message;
-        this.$root.$data.user = null;      
+        this.$root.$data.user = null;
       }
     },
     async getMovies() {
