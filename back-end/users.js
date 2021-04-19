@@ -129,8 +129,8 @@ router.post('/', async (req, res) => {
       password: req.body.password,
       email: req.body.email
     });
-    await user.save;
-
+    console.log("saving user");
+    await user.save();
     // set user session info
     req.session.userID = user._id;
     // send back a 200 OK response, along with the user that was created
