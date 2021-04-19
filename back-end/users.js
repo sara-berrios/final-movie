@@ -194,8 +194,7 @@ router.post('/login', async (req, res) => {
 
 // logout
 // router.delete("/", validUser, async (req, res) => {
-  router.delete("/", async (req, res) => {
-
+router.delete("/", async (req, res) => {
   try {
     req.session = null;
     res.sendStatus(200);

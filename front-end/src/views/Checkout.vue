@@ -45,10 +45,11 @@ export default {
       //console.log(response.data);
       this.checkedOutMovies = response.data;
     },
-    logout(){
+    async logout(){
       try{
-          this.$root.$data.user = null;
-          this.$router.push({ path: '/'});
+        await axios.delete("/api/users");
+        this.$root.$data.user = null;
+        this.$router.push({ path: '/'});
       }catch(error){
         //console.log(error);
       }
