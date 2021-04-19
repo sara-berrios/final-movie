@@ -1,7 +1,7 @@
 <template>
 <div class="outer">
   <h1>Admin</h1>
-  <router-link id='homeButton' to='/'>Home</router-link>
+  <!-- <router-link id='homeButton' to='/'>Home</router-link> -->
 
   <div class="buttonWrapper">
     <div class="buttonBox">
@@ -14,6 +14,14 @@
 
     <div class="buttonBox">
       <button @click="showAddForm">Add a Movie</button>
+    </div>
+
+    <div class="buttonBox">
+      <button id="showAll" @click="showAll">Show All Movies</button>
+    </div>
+
+    <div class="buttonBox">
+      <button id="logout" @click="logout">Logout</button>
     </div>
   </div>
 
@@ -241,5 +249,9 @@ a {
 
 .editButton {
   background-color: #f3f710;
+}
+
+#logout {
+  background-color: white;
 }
 </style>

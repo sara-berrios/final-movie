@@ -134,7 +134,11 @@ export default {
         //console.log(user.data);
         //console.log(this.$root.$data.user);
         this.$root.$data.user = response.data.user;
-        this.$router.push({ path: '/checkout'});
+        if(this.$root.$data.user.role === 'admin') {
+          this.$router.push({ path: '/admin'});
+        } else {
+          this.$router.push({ path: '/checkout'});
+        }
       }catch(error){
         this.invalidLogin = true;
         this.errorLogin = "Error: " + error.response.data.message;
