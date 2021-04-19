@@ -68,6 +68,36 @@ userSchema.pre('save', async function(next) {
 
 const User = mongoose.model('User', userSchema);
 
+/* Middleware */
+
+// middleware function to check for logged-in users
+const validUser = async (req, res, next) => {
+  if (!req.session.userID)
+    return res.status(403).send({
+      message: "not logged in"
+    });
+  try {
+    const user = await User.findOne({
+      _id: req.session.userID
+    });
+    if (!user) {
+      return res.status(403).send({
+        message: "not logged in"
+      });
+    }
+    // set the user field in the request
+    req.user = user;
+  } catch (error) {
+    // Return an error if user does not exist.
+    return res.status(403).send({
+      message: "not logged in"
+    });
+  }
+
+  // if everything succeeds, move to the next middleware
+  next();
+};
+
 /* API Endpoints */
 
 /* All of these endpoints start with "/" here, but will be configured by the
@@ -100,6 +130,9 @@ try{
     email: req.body.email
   });
   await user.save;
+
+  // set user session info
+  req.session.userID = user._id;
   // send back a 200 OK response, along with the user that was created
   return res.send({
     user: user
@@ -110,16 +143,17 @@ try{
   }
 });
 
-// Get all users...DO WE NEED THIS?
-// app.get('/api/users', async (req, res) => {
-//   try {
-//     let user = await User.find();
-//     res.send(user);
-//   } catch (error) {
-//     console.log(error);
-//     res.sendStatus(500);
-//   }
-// });
+// get logged in user
+router.get('/', validUser, async (req, res) => {
+  try {
+    res.send({
+      user: req.user
+    });
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(500);
+  }
+});
 
 // login a user
 // app.post('/api/users/login', async (req, res) => {
@@ -147,6 +181,8 @@ router.post('/login', async (req, res) => {
         message: "username or password is wrong"
       });
 
+    // set user session info
+    req.session.userID = user._id;
     return res.send({
       user: user
     });
@@ -171,5 +207,6 @@ router.post('/login', async (req, res) => {
 
 module.exports = {
   routes: router,
-  model: User
+  model: User,
+  valid: validUser
 };
