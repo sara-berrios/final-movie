@@ -29,10 +29,10 @@ export default {
     }
   },
   async created() {
+    this.movie = (await axios.get(`/api/movies/${this.$route.params.id}`)).data;
     try {
       let response = await axios.get('/api/users');
       this.$root.$data.user = response.data.user;
-      this.movie = (await axios.get(`/api/movies/${this.$route.params.id}`)).data;
     } catch (error) {
       this.$root.$data.user = null;
       this.error = error.response.data.message;

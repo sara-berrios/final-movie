@@ -128,7 +128,8 @@ export default {
   computed: {
     user() {
       return this.$root.$data.user;
-    }
+    },
+
   },
   methods:{
     fileChanged(event) {
@@ -185,6 +186,7 @@ export default {
           summary: this.summary,
         });
         this.addItem = r2.data;
+        this.$router.push({ path: '/admin'});
         //console.log(r2);
       }
       catch(error){
@@ -299,9 +301,11 @@ a {
 }
 .deleteButton {
   background-color:#c92d25;
+  margin-bottom: 30px;
 }
 .editButton {
   background-color: #f3f710;
+  margin-bottom: 30px;
 }
 h1{
   text-align: center;
