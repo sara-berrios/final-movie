@@ -28,19 +28,19 @@
     <div class="form">
       <label>Title: </label>
       <input v-model="title">
-      <p></p>
+      <p class="break"></p>
       <label>MPA Rating: </label>
       <input v-model="mpa">
-      <p></p>
+      <p class="break"></p>
       <label>Genre: </label>
       <input v-model="genre">
-      <p></p>
+      <p class="break"></p>
       <label>IMDb Rating: </label>
       <input v-model="imdb" placeholder="Number between 1-10">
-      <p></p>
+      <p class="break"></p>
       <label>Summary: </label>
       <textarea v-model="summary">Description</textarea>
-      <p></p>
+      <p class="break"></p>
       <input type="file" name="photo" @change="fileChanged">
       <button @click="addMovie">Add</button>
     </div>
@@ -328,6 +328,10 @@ hr{
 h3{
   margin-bottom: 5px;
 }
+.break{
+  margin-top: 15px;
+}
+
 
 @media only screen and (max-width: 400px) {
   #logout {

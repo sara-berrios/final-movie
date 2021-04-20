@@ -2,7 +2,7 @@
   <div id="app">
     <router-view/>
     <div class="footer">
-      <p>Sara Berrios & Jessica Hamblin</p>
+      <p>Sara Berrios & Jessica Hamblin - 12 hours</p>
       <a href="https://github.com/sara-berrios/final-movie">GitHub Repo</a>
       <p>Images and snynopsis from IMDb</p>
     </div>
