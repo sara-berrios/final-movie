@@ -49,13 +49,30 @@ router.get('/', async (req, res) => {
 
 // get all movies that have null user
 router.get('/available', async (req, res) => {
-  console.log("getting available");
+  //console.log("getting available");
   try {
     let movies = await Movie.find( {user:null} );
     res.send(movies);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
+  }
+});
+
+//get all checked out movies
+router.get('/checked-out', validUser, async (req, res) => {
+  console.log("getting checked out");
+  if(req.user.role !== "admin"){
+    return res.sendStatus(403);
+  }
+  else{
+    try {
+      let movies = await Movie.find({user: {$ne:null}}).populate('user');
+      res.send(movies);
+    } catch (error) {
+      console.log(error);
+      res.sendStatus(500);
+    }
   }
 });
 

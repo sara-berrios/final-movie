@@ -76,15 +76,15 @@
       <h2>Checked Out Movies</h2>
       <div class="viewForm">
 
-      <!-- <div v-for="movie in checkedOutMovies" :key="movie._id">
+      <div v-for="movie in checkedOutMovies" :key="movie._id">
         <img :src="movie.path">
         <h3>{{movie.title}}</h3>
-        <p>Checked out by: {{movie.user.firstName}} {{movie.user.lastName}}</p>
+        <p>Checked out by: {{movie.user.firstName}} {{movie.user.lastName}} </p>
         <p>Contact: {{movie.user.email}}</p>
-      </div> -->
+      </div>
       </div>
       <hr/>
-    
+
       <h2>Available Movies</h2>
       <div class="viewForm">
         <div v-for="movie in availableMovies" :key="movie._id">
@@ -127,7 +127,7 @@ export default {
       this.$root.$data.user = null;
     }
     this.getAvailableMovies();
-    // this.getCheckedOutMovies();
+    this.getCheckedOutMovies();
     this.getMovies();
   },
   computed: {
@@ -156,7 +156,7 @@ export default {
       this.editing = true;
       this.deleting = false;
       this.viewing = false;
-    }, 
+    },
     showAll() {
       this.adding = false;
       this.editing = false;
@@ -229,7 +229,15 @@ export default {
       } catch(error) {
         console.log(error);
       }
-    }
+    },
+    async getCheckedOutMovies() {
+      try {
+        let response = await axios.get("/api/movies/checked-out");
+        this.checkedOutMovies = response.data;
+      } catch(error) {
+        console.log(error);
+      }
+    },
 
   }
 
