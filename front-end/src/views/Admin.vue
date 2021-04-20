@@ -21,11 +21,10 @@
       <button @click="showAddForm">Add a Movie</button>
     </div>
 
-<!--
     <div class="buttonBox">
       <button id="showAll" @click="showAll">Show All Movies</button>
     </div>
--->
+
 
 
   </div>
@@ -71,15 +70,30 @@
       </div>
     </div>
   </div>
-      <!--
-      <select v-model="mpa" id="mpa">
-        <option v-bind:value="G">G</option>
-        <option v-bind:value="PG">PG</option>
-        <option v-bind:value="PG-13">PG-13</option>
-        <option v-bind:value="R">R</option>
-        <option v-bind:value="other">Other</option>
-      </select>
-      -->
+
+  <div class="view" v-if=viewing>
+    <hr/>
+      <h2>Checked Out Movies</h2>
+      <div class="viewForm">
+
+      <!-- <div v-for="movie in checkedOutMovies" :key="movie._id">
+        <img :src="movie.path">
+        <h3>{{movie.title}}</h3>
+        <p>Checked out by: {{movie.user.firstName}} {{movie.user.lastName}}</p>
+        <p>Contact: {{movie.user.email}}</p>
+      </div> -->
+      </div>
+      <hr/>
+    
+      <h2>Available Movies</h2>
+      <div class="viewForm">
+        <div v-for="movie in availableMovies" :key="movie._id">
+          <img :src="movie.path">
+          <h3>{{movie.title}}</h3>
+        </div>
+    </div>
+  </div>
+
 </div>
 </template>
 
@@ -98,18 +112,28 @@ export default {
       adding: false,
       deleting: false,
       editing: false,
+      viewing: false,
       file: null,
       movies: [],
+      availableMovies: [],
+      checkedOutMovies: [],
     }
+  },
+   async created() {
+    try {
+      let response = await axios.get('/api/users');
+      this.$root.$data.user = response.data.user;
+    } catch (error) {
+      this.$root.$data.user = null;
+    }
+    this.getAvailableMovies();
+    // this.getCheckedOutMovies();
+    this.getMovies();
   },
   computed: {
     user() {
       return this.$root.$data.user;
-    },
-  },
-  created() {
-    return this.getMovies();
-    //this.movies = this.$root.$data.allMovies;
+    }
   },
   methods:{
     fileChanged(event) {
@@ -119,17 +143,27 @@ export default {
       this.adding = true;
       this.editing = false;
       this.deleting = false;
+      this.viewing = false;
     },
     showDeleteForm() {
       this.adding = false;
       this.editing = false;
       this.deleting = true;
+      this.viewing = false;
     },
     showEditForm() {
       this.adding = false;
       this.editing = true;
       this.deleting = false;
+      this.viewing = false;
+    }, 
+    showAll() {
+      this.adding = false;
+      this.editing = false;
+      this.deleting = false;
+      this.viewing = true;
     },
+
     async getMovies() {
       try {
           let response = await axios.get("/api/movies");
@@ -188,6 +222,15 @@ export default {
       }
     },
 
+    async getAvailableMovies() {
+      try {
+        let response = await axios.get("/api/movies/available");
+        this.availableMovies = response.data;
+      } catch(error) {
+        console.log(error);
+      }
+    }
+
   }
 
 }
@@ -201,7 +244,8 @@ export default {
   flex-direction: row;
 }
 .deleteForm,
-.editForm {
+.editForm,
+.viewForm {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;

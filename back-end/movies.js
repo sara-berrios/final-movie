@@ -49,6 +49,7 @@ router.get('/', async (req, res) => {
 
 // get all movies that have null user
 router.get('/available', async (req, res) => {
+  console.log("getting available");
   try {
     let movies = await Movie.find( {user:null} );
     res.send(movies);
