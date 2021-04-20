@@ -187,6 +187,7 @@ export default {
         });
         this.addItem = r2.data;
         this.adding = false;
+        this.getMovies();
         //console.log(r2);
       }
       catch(error){
