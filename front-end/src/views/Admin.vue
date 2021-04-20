@@ -186,7 +186,7 @@ export default {
           summary: this.summary,
         });
         this.addItem = r2.data;
-        this.$router.push({ path: '/admin'});
+        this.adding = false;
         //console.log(r2);
       }
       catch(error){
