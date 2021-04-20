@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <h1>Movie Picker</h1>
-    <p>Welcome {{user.firstName}} {{user.lastName}}</p>
     <button id="logout" @click="logout">Logout</button>
+    <h1>Bring Your Own Popcorn</h1>
+    <p>Welcome {{user.firstName}} {{user.lastName}}</p>
     <hr/>
 
     <h2>Your Movies</h2>
@@ -155,5 +155,26 @@ label{
   margin-top: 15px;
   background-color: white;
   font-size: 20px;
+}
+
+h1{
+  text-align: center;
+}
+
+#logout {
+  float: right;
+  margin-left: -50%;
+  margin-right: 40px;
+  margin-top: 3em;
+  background-color: white;
+}
+.header{
+  overflow: hidden;
+}
+
+@media only screen and (max-width: 400px) {
+  #logout {
+    margin-right: 0px;
+  }
 }
 </style>

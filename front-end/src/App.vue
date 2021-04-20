@@ -7,7 +7,8 @@
     </div> -->
     <router-view/>
     <div class="footer">
-      <a href="https://github.com/hamblinjm/checkout-movie">GitHub Repo</a>
+      <p>Sara Berrios & Jessica Hamblin</p>
+      <a href="https://github.com/sara-berrios/final-movie">GitHub Repo</a>
       <p>Images and snynopsis from IMDb</p>
     </div>
   </div>
@@ -34,7 +35,16 @@ html {
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: black;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+a:hover {
+  color: white;
 }
 
 #nav a.router-link-exact-active {
@@ -49,8 +59,10 @@ html {
 }
 
 .footer p {
-  margin-bottom: 0px;
+  margin-bottom: 5px;
   font-family: 'Staatliches', cursive;
+  margin-top: 5px;
+  color: black;
 }
 
 h1,h2,h3 {

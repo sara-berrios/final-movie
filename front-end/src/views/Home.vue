@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>Movie Picker</h1>
+    <h1>Bring Your Own Popcorn</h1>
     <hr/>
 
     <div class="buttonWrapper">

@@ -2,8 +2,9 @@
 <div class="outer">
 
   <div class="header">
-    <h1>Admin</h1>
     <button id="logout" @click="logout">Logout</button>
+    <h1>Admin</h1>
+    <!-- <button id="logout" @click="logout">Logout</button> -->
   </div>
 
   <!-- <router-link id='homeButton' to='/'>Home</router-link> -->
@@ -286,7 +287,6 @@ img {
   flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
-  /* margin-bottom: 30px; */
   width: 80%;
   margin: 0 auto;
 }
@@ -313,12 +313,20 @@ h1{
   text-align: center;
 }
 #logout {
-  position: absolute;
-  right: 40px;
-  top: 25px;
+  
+  float: right;
+  margin-left: -50%;
+  margin-right: 40px;
+  margin-top: 3em;
   background-color: white;
 }
 .header{
-  position: relative;
+  overflow: hidden;
+}
+
+@media only screen and (max-width: 400px) {
+  #logout {
+    margin-right: 0px;
+  }
 }
 </style>
