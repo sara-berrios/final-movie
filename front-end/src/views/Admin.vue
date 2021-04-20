@@ -1,6 +1,11 @@
 <template>
 <div class="outer">
-  <h1>Admin</h1>
+
+  <div class="header">
+    <h1>Admin</h1>
+    <button id="logout" @click="logout">Logout</button>
+  </div>
+
   <!-- <router-link id='homeButton' to='/'>Home</router-link> -->
 
   <div class="buttonWrapper">
@@ -22,9 +27,7 @@
     </div>
 -->
 
-    <div class="buttonBox">
-      <button id="logout" @click="logout">Logout</button>
-    </div>
+
   </div>
 
   <div class="add" v-if=adding>
@@ -211,24 +214,20 @@ button{
   font-family: 'Staatliches', cursive;
   font-size: 25px;
 }
-
 img {
   height: 400px;
   width: 300px;
 }
-
 .info {
   justify-content: center;
   text-align: center;
   display: float;
 }
-
 .details {
   width: 400px;
   justify-content: center;
   text-align: center;
 }
-
 .content {
   display: flex;
   justify-content: space-around;
@@ -239,16 +238,10 @@ img {
   width: 80%;
   margin: 0 auto;
 }
-
 a {
   color: #42b983;
   font-family: 'Roboto Slab', serif;
 }
-
-/* button {
-  font-family: 'Staatliches', cursive;
-  width: 100px;
-} */
 #homeButton{
   margin-left: 90%;
   font-size: 40px;
@@ -258,16 +251,22 @@ a {
 #homeButton:hover{
   color: white;
 }
-
 .deleteButton {
   background-color:#c92d25;
 }
-
 .editButton {
   background-color: #f3f710;
 }
-
+h1{
+  text-align: center;
+}
 #logout {
+  position: absolute;
+  right: 40px;
+  top: 25px;
   background-color: white;
+}
+.header{
+  position: relative;
 }
 </style>
