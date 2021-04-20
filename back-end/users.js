@@ -8,8 +8,6 @@ const router = express.Router();
 // User schema and model
 //
 
-// This is the schema. Users have usernames and passwords. We solemnly promise to
-// salt and hash the password!
 const userSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,

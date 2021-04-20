@@ -29,13 +29,15 @@ export default {
     }
   },
   async created() {
-    try{
+    try {
+      let response = await axios.get('/api/users');
+      this.$root.$data.user = response.data.user;
       this.movie = (await axios.get(`/api/movies/${this.$route.params.id}`)).data;
-    }catch(error){
-        this.error = error.response.data.message;
+    } catch (error) {
+      this.$root.$data.user = null;
+      this.error = error.response.data.message;
     }
     this.getIsCheckedOut();
-
   },
   computed: {
     user() {

@@ -35,45 +35,11 @@ const upload = multer({
   }
 });
 
-router.post('/photos', upload.single('photo'), async (req, res) => {
-  if (!req.file) {
-    return res.sendStatus(400);
-  }
-  res.send({
-    path: "/images/" + req.file.filename
-  });
-});
-
-// Create a new movie: takes a title and a path to an image.
-router.post('/', async (req, res) => {
-  if (req.user.role !== "admin") {
-    return res.sendStatus(403);
-  }
-  else{
-    const movie = new Movie({
-      title: req.body.title,
-      path: req.body.path,
-      mpa: req.body.mpa,
-      genre: req.body.genre,
-      imdb: req.body.imdb,
-      summary: req.body.summary,
-      user: null,
-    });
-    try {
-      await movie.save();
-      res.send(movie);
-    } catch (error) {
-      console.log(error);
-      res.sendStatus(500);
-    }
-  }
-});
-
 //gets all the movies in collection
 router.get('/', async (req, res) => {
   try {
     let movies = await Movie.find();
-    console.log(movies);
+    //console.log(movies); PRINTS ALL OUR MOVIES
     res.send(movies);
   } catch (error) {
     console.log(error);
@@ -130,7 +96,7 @@ router.get('/:id', async (req, res) => {
 });
 
 //checkout one movie
-router.put(':movieID/checkout/:userID', async (req, res) => {
+router.put('/:movieID/checkout/:userID', validUser, async (req, res) => {
   try{
     let movie = await Movie.findOne({_id:req.params.movieID});
     if (!movie) {
@@ -150,7 +116,7 @@ router.put(':movieID/checkout/:userID', async (req, res) => {
 });
 
 //return one movie
-router.put('/:movieID/return/', async (req, res) => {
+router.put('/:movieID/return/', validUser, async (req, res) => {
   try{
     let movie = await Movie.findOne({_id:req.params.movieID});
     if (!movie) {
@@ -169,7 +135,7 @@ router.put('/:movieID/return/', async (req, res) => {
 });
 
 //delete one movie
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', validUser, async (req, res) => {
   if (req.user.role !== "admin") {
     return res.sendStatus(403);
   }
@@ -208,6 +174,46 @@ router.put('/:id', validUser, async (req, res) => {
       movie.genre = req.body.genre;
       movie.imdb = req.body.imdb;
       movie.summary = req.body.summary;
+      await movie.save();
+      res.send(movie);
+    } catch (error) {
+      console.log(error);
+      res.sendStatus(500);
+    }
+  }
+});
+
+// Create a new movie with a photo
+router.post('/photos', validUser, upload.single('photo'), async (req, res) => {
+  if (req.user.role !== "admin") {
+    return res.sendStatus(403);
+  }
+  else{
+    if (!req.file) {
+      return res.sendStatus(400);
+    }
+    res.send({
+      path: "/images/" + req.file.filename
+    });
+  }
+
+});
+
+router.post('/', validUser, async (req, res) => {
+  if (req.user.role !== "admin") {
+    return res.sendStatus(403);
+  }
+  else{
+    const movie = new Movie({
+      title: req.body.title,
+      path: req.body.path,
+      mpa: req.body.mpa,
+      genre: req.body.genre,
+      imdb: req.body.imdb,
+      summary: req.body.summary,
+      user: null,
+    });
+    try {
       await movie.save();
       res.send(movie);
     } catch (error) {

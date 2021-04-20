@@ -7,7 +7,7 @@ Vue.config.productionTip = false
 // import mock from './mock-data.js'
 
 let data = {
-  movie: "",
+  movie: "", //we don't use this in Movie.vue for some reason. (maybe we use it in edit?)
   // allMovies: [],
   user: null,
 }

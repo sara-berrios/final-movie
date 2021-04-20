@@ -36,8 +36,7 @@
     -->
 
   </div>
-
-  <router-link to="/admin">Back</router-link>
+  <button class="backButton" @click="goBack">Back</button>
 </div>
 </template>
 
@@ -75,6 +74,9 @@ export default {
       } catch (error) {
         /*console.log(error);*/
       }
+    },
+    goBack(){
+      this.$router.push('/admin');
     },
   },
 }
@@ -122,5 +124,15 @@ a {
   background-color: rgb(130, 201, 168);
   font-family: 'Staatliches', cursive;
   font-size: 25px;
+}
+button{
+  background-color: rgb(130, 201, 168);
+  font-family: 'Staatliches', cursive;
+  font-size: 25px;
+}
+.backButton{
+  margin-top: 15px;
+  background-color: white;
+  font-size: 20px;
 }
 </style>

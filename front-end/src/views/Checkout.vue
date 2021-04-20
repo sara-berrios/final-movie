@@ -26,14 +26,24 @@ export default {
   },
   data() {
     return {
-      user: this.$root.$data.user,
       availableMovies: [],
       checkedOutMovies: []
     }
   },
-  created() {
+  async created() {
+    try {
+      let response = await axios.get('/api/users');
+      this.$root.$data.user = response.data.user;
+    } catch (error) {
+      this.$root.$data.user = null;
+    }
     this.getAvailable();
     this.getCheckedOut();
+  },
+  computed: {
+    user() {
+      return this.$root.$data.user;
+    }
   },
   methods: {
     async getAvailable(){
