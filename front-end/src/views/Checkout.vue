@@ -105,10 +105,6 @@ hr {
   margin-bottom: 30px;
 }
 
-hr {
-  /* width: 50%; */
-}
-
 button {
   font-family: 'Staatliches', cursive;
   width: 100px;

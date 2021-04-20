@@ -25,16 +25,6 @@
       </div>
     </div>
 
-    <!--
-    <div class="details">
-      <p>{{movie.title}}</p>
-      <p>MPA Rating: {{movie.mpa}}</p>
-      <p>Genre: {{movie.genre}}</p>
-      <p>IMDb Rating: {{movie.imdb}} / 10</p>
-      <p>{{movie.summary}}</p>
-    </div>
-    -->
-
   </div>
   <button class="backButton" @click="goBack">Back</button>
 </div>
@@ -88,11 +78,6 @@ img {
   width: 300px;
 }
 
-/* p {
-  width: 400px;
-  justify-content: center;
-} */
-
 .info {
   justify-content: center;
   text-align: center;
@@ -111,7 +96,6 @@ img {
   flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
-  /* margin-bottom: 30px; */
   width: 80%;
   margin: 0 auto;
 }

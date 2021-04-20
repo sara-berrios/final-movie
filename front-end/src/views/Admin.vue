@@ -4,10 +4,7 @@
   <div class="header">
     <button id="logout" @click="logout">Logout</button>
     <h1>Admin</h1>
-    <!-- <button id="logout" @click="logout">Logout</button> -->
   </div>
-
-  <!-- <router-link id='homeButton' to='/'>Home</router-link> -->
 
   <div class="buttonWrapper">
     <div class="buttonBox">
@@ -25,9 +22,6 @@
     <div class="buttonBox">
       <button id="showAll" @click="showAll">Show All Movies</button>
     </div>
-
-
-
   </div>
 
   <div class="add" v-if=adding>
@@ -313,7 +307,7 @@ h1{
   text-align: center;
 }
 #logout {
-  
+
   float: right;
   margin-left: -50%;
   margin-right: 40px;
@@ -323,10 +317,26 @@ h1{
 .header{
   overflow: hidden;
 }
+p{
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 13px;
+}
+hr{
+  margin-top: 30px;
+}
+h3{
+  margin-bottom: 5px;
+}
 
 @media only screen and (max-width: 400px) {
   #logout {
     margin-right: 0px;
   }
+  p{
+    margin-top: 0px;
+    margin-bottom: 10px;
+  }
+
 }
 </style>

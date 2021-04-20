@@ -1,30 +1,15 @@
 <template>
     <div class="movies">
-        <!--
-        <div v-for="movie in movies" :key="movie.id">
-            <img :src="'images/' +movie.image">
-            <h3>{{movie.title}}</h3>
-        </div>
-        <router-link v-for="movie in movies" :key="movie._id" to="{ name: 'movie', params: { id: movie._id }}" style="display: inline-block;text-decoration:none;" @click.native="updateMovie(movie)">
-        <img :src="'images/' +movie.image">
-
+      <div v-for="movie in movies" :key="movie._id" style="display: inline-block;text-decoration:none;">
+        <router-link :to="'/movie/' + movie._id" style="display: inline-block;text-decoration:none;">
+          <img :src="movie.path">
+          <h3>{{movie.title}}</h3>
         </router-link>
-        -->
-
-            <div v-for="movie in movies" :key="movie._id" style="display: inline-block;text-decoration:none;">
-              <router-link :to="'/movie/' + movie._id" style="display: inline-block;text-decoration:none;">
-                <img :src="movie.path">
-                <h3>{{movie.title}}</h3>
-              </router-link>
-            </div>
-
-
+      </div>
     </div>
 </template>
 
 <script>
-// import axios from "axios";
-
 export default {
     name: 'MovieList',
     props: {
@@ -41,10 +26,6 @@ export default {
 </script>
 
 <style scoped>
-/* .movie {
-    width: 300px;
-} */
-
 .movies {
     display: flex;
     flex-wrap: wrap;

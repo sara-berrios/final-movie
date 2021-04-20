@@ -68,10 +68,7 @@ export default {
         this.$router.push('/checkout');
       }
     },
-    getIsCheckedOut(){ //THIS FUNCTION IS THE PROBLEM!
-      // console.log("in movie vue");
-      // console.log(this.user);
-      // console.log(this.movie.user);
+    getIsCheckedOut(){
       if(this.user){
         if(this.user._id === this.movie.user){
           this.isCheckedOut = true;
@@ -87,11 +84,6 @@ img {
   height: 400px;
   width: 300px;
 }
-
-/* p {
-  width: 400px;
-  justify-content: center;
-} */
 
 .info {
   justify-content: center;
@@ -111,7 +103,6 @@ img {
   flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
-  /* margin-bottom: 30px; */
   width: 80%;
   margin: 0 auto;
 }

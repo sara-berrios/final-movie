@@ -14,7 +14,6 @@
     </div>
 
     <div class="loginForm" v-if=login>
-      <!-- <form> -->
       <div class="form">
         <label>Username:</label>
         <input v-model="usernameLogin" type="text">
@@ -24,12 +23,10 @@
         <br/>
         <button class="submitButton" @click="submitLogin">Submit</button>
         <p v-if=invalidLogin>Incorrect username or password</p>
-      <!-- </form> -->
       </div>
     </div>
 
     <div class="signupForm" v-if=signup>
-      <!-- <form> -->
       <div class="form">
         <label>First Name:</label>
         <input v-model="firstName" type="text">
@@ -49,10 +46,8 @@
         <button class="submitButton" @click="submitSignup">Submit</button>
         <p v-if=invalidSignup>All fields are required </p>
       </div>
-      <!-- </form> -->
     </div>
 
-    <!-- <h1>View Selection</h1> -->
     <MovieList :movies="movies" />
   </div>
 </template>
@@ -178,8 +173,6 @@ export default {
       } catch(error) {
         //console.log(error);
       }
-
-      // this.movies = this.$root.$data.allMovies;
     }
   }
 }
@@ -220,10 +213,6 @@ hr {
 
 #clear {
   margin-bottom: 30px;
-}
-
-hr {
-  /* width: 50%; */
 }
 
 button {

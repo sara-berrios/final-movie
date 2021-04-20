@@ -1,10 +1,5 @@
 <template>
   <div id="app">
-    
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
     <router-view/>
     <div class="footer">
       <p>Sara Berrios & Jessica Hamblin</p>
@@ -19,8 +14,6 @@ html {
   background-color: rgb(41, 39, 39);
 }
 #app {
-  /* font-family: Avenir, Helvetica, Arial, sans-serif; */
-  /* font-family: 'Bebas Neue', cursive; */
   font-family: 'Staatliches', cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -75,9 +68,6 @@ h1 {
 }
 
 p {
-  /* font-family: 'Source Sans Pro', sans-serif; */
-  /* letter-spacing: 1.5px; */
   font-family: 'Roboto Slab', serif;
 }
 </style>
-
