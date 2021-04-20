@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <h1>Movie Picker</h1>
-    <router-link to='/admin' id="adminButton">Admin</router-link>
     <hr/>
 
     <div class="buttonWrapper">

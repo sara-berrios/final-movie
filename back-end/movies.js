@@ -46,21 +46,26 @@ router.post('/photos', upload.single('photo'), async (req, res) => {
 
 // Create a new movie: takes a title and a path to an image.
 router.post('/', async (req, res) => {
-  const movie = new Movie({
-    title: req.body.title,
-    path: req.body.path,
-    mpa: req.body.mpa,
-    genre: req.body.genre,
-    imdb: req.body.imdb,
-    summary: req.body.summary,
-    user: null,
-  });
-  try {
-    await movie.save();
-    res.send(movie);
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
+  if (req.user.role !== "admin") {
+    return res.sendStatus(403);
+  }
+  else{
+    const movie = new Movie({
+      title: req.body.title,
+      path: req.body.path,
+      mpa: req.body.mpa,
+      genre: req.body.genre,
+      imdb: req.body.imdb,
+      summary: req.body.summary,
+      user: null,
+    });
+    try {
+      await movie.save();
+      res.send(movie);
+    } catch (error) {
+      console.log(error);
+      res.sendStatus(500);
+    }
   }
 });
 
@@ -165,34 +170,50 @@ router.put('/:movieID/return/', async (req, res) => {
 
 //delete one movie
 router.delete('/:id', async (req, res) => {
-  try {
-    await Movie.deleteOne({
-      _id: req.params.id
-    });
-    res.sendStatus(200);
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
+  if (req.user.role !== "admin") {
+    return res.sendStatus(403);
+  }
+  else{
+    try {
+      await Movie.deleteOne({
+        _id: req.params.id
+      });
+      res.sendStatus(200);
+    } catch (error) {
+      console.log(error);
+      res.sendStatus(500);
+    }
   }
 });
 
 //edit one movie
-router.put('/:id', async (req, res) => {
-  try {
-    movie = await Movie.findOne({
-      _id: req.params.id
-    });
-    movie.title = req.body.title;
-    movie.path = req.body.path;
-    movie.mpa = req.body.mpa;
-    movie.genre = req.body.genre;
-    movie.imdb = req.body.imdb;
-    movie.summary = req.body.summary;
-    await movie.save();
-    res.send(movie);
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
+router.put('/:id', validUser, async (req, res) => {
+  if (req.user.role !== "admin") {
+    return res.sendStatus(403);
+  }
+  else{
+    if (!req.body.title || !req.body.path || !req.body.mpa ||
+      !req.body.genre || !req.body.imdb || !req.body.summary) {
+      return res.status(400).send({
+        message: "All fields are required"
+      });
+    }
+    try {
+      movie = await Movie.findOne({
+        _id: req.params.id
+      });
+      movie.title = req.body.title;
+      movie.path = req.body.path;
+      movie.mpa = req.body.mpa;
+      movie.genre = req.body.genre;
+      movie.imdb = req.body.imdb;
+      movie.summary = req.body.summary;
+      await movie.save();
+      res.send(movie);
+    } catch (error) {
+      console.log(error);
+      res.sendStatus(500);
+    }
   }
 });
 

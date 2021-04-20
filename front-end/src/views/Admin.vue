@@ -16,9 +16,11 @@
       <button @click="showAddForm">Add a Movie</button>
     </div>
 
+<!--
     <div class="buttonBox">
       <button id="showAll" @click="showAll">Show All Movies</button>
     </div>
+-->
 
     <div class="buttonBox">
       <button id="logout" @click="logout">Logout</button>
@@ -97,6 +99,11 @@ export default {
       movies: [],
     }
   },
+  computed: {
+    user() {
+      return this.$root.$data.user;
+    },
+  },
   created() {
     return this.getMovies();
     //this.movies = this.$root.$data.allMovies;
@@ -146,7 +153,6 @@ export default {
           summary: this.summary,
         });
         this.addItem = r2.data;
-        this.$router.push({ path: '/'});
         //console.log(r2);
       }
       catch(error){
@@ -158,7 +164,6 @@ export default {
       try {
         await axios.delete("/api/movies/" + movie._id);
         this.getMovies();
-        this.$router.push({ path: '/'});
         return true;
       } catch(error) {
         //console.log(error);
@@ -169,6 +174,17 @@ export default {
       this.$root.$data.movie = currentMovie;
       this.$router.push({ path: '/edit'});
     },
+
+    async logout(){
+      try{
+        await axios.delete("/api/users");
+        this.$root.$data.user = null;
+        this.$router.push({ path: '/'});
+      }catch(error){
+        console.log(error);
+      }
+    },
+
   }
 
 }
