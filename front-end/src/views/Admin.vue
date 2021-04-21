@@ -186,6 +186,11 @@ export default {
           summary: this.summary,
         });
         this.addItem = r2.data;
+        this.title = "";
+        this.mpa = "";
+        this.genre = "";
+        this.imdb = "";
+        this.summary = "";
         this.adding = false;
         this.getAvailableMovies();
         this.getCheckedOutMovies();
